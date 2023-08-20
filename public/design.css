@@ -1,0 +1,69 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+h1{
+    text-align: center;
+    font-size: 3.5rem;
+    margin: 1rem;
+}
+
+/* certificates */
+#certificates{
+    width: 80vw;
+    margin: 40px auto;
+}
+#certificates h2{
+    font-size: 2.5rem;
+}
+#certificates ul{
+    list-style: none;
+}
+#certificates ul li{
+    border: 1px solid lightblue;
+    padding: 20px;
+    margin: 5px;
+    cursor: pointer;
+    color: blue;
+}
+#certificates ul li a{
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: inherit;
+}
+#certificates li:hover{
+    background: lightblue;
+    color: white;
+}
+
+
+
+/* Resources */
+#Resources{
+    width: 80vw;
+    margin: 40px auto;
+}
+#Resources h2{
+    font-size: 2.5rem;
+}
+#Resources ul{
+    list-style: none;
+}
+#Resources ul li{
+    border: 1px solid lightblue;
+    padding: 20px;
+    margin: 5px;
+    cursor: pointer;
+    color: blue;
+}
+#Resources ul li a{
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: inherit;
+}
+#Resources li:hover{
+    background: lightblue;
+    color: white;
+}

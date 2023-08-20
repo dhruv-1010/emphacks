@@ -1,0 +1,110 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
+/* Introduction */
+#intro{
+    display: flex;
+    align-items: center;
+    justify-content: space-around  ;
+    flex-wrap: wrap;
+    background: lightblue;
+}
+
+
+/* Benefits */
+#second h1{
+    margin: 1rem;
+    font-size: 3rem;
+    text-align: center;
+}
+#benefits{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.boxs{
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(192, 189, 189);
+    padding: 10px;
+    margin: 4px;
+    border-radius: 5px;
+}
+.boxs:hover{
+    background: lightblue;
+    border: 1px solid lightblue;
+}
+.boxs img{
+    padding-right: 20px;
+}
+
+
+
+/* Courses */
+#skills{
+    background: lightgray;
+}
+#skills h1{
+    margin: 1rem;
+    font-size: 3rem;
+    text-align: center;
+}
+#courses{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.course{
+    margin: 20px;
+    text-align: center;
+    border: 1px solid lightblue;
+    width: 20vw;
+    background: white;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 20px;
+}
+.course a{
+    text-decoration: none;
+    color: black;
+    height: 100%;
+    width: 100%;
+}
+.course:hover{
+    color: white;
+    background: lightblue;
+}
+
+
+
+/* Success */
+#success{
+    background: lightblue;
+}
+#success h1{
+    margin: 1rem;
+    font-size: 3rem;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+#cards{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card{
+    margin: 10px;
+}
+.card-upper{
+    display: flex;
+    align-items: center;
+}
+.card-lower p{
+    padding: 12px;
+}
+
+
