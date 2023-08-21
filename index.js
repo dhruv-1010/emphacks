@@ -5,10 +5,13 @@ const mongoose = require('mongoose');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'))
 app.use(express.static(path.join(__dirname, '/public')));
-const port = 8000 || 3000;
-console.log("gaurav")
-app.get("/",(req,res)=>{
-    res.send("gaurav guzzar")
+const port = 3000;
+const CommunityDB = require('./models/communityDB');
+const PostDB = require('./models/postDB');
+
+
+app.get("/home",(req,res)=>{
+    res.render("home")
 })
 app.get("/login",(req,res)=>{
     res.render("login");
@@ -23,7 +26,7 @@ app.listen(port,(req,res)=>{
 
 
 // mongodb
-mongoose.connect('mongodb://127.0.0.1:27017/studybuddy').
+mongoose.connect('mongodb+srv://dhruvsingh235443:4Xltnili772nDW9s@cluster0.iv8mwez.mongodb.net/?retryWrites=true&w=majority').
 then(()=>{
     console.log('DB CONNECTED');})
 .catch((err)=>{
@@ -49,6 +52,10 @@ const study_schema = new mongoose.Schema({
         type:String,
         trim:true
     },
+    time:{ 
+        type:String,
+        trim:true
+    },
     linkedin:{
         type:String,
         trim:true
@@ -64,34 +71,37 @@ const study_schema = new mongoose.Schema({
     },
     password:{
         type:String,
-        trim:true
+        trim:true,
+        required:true
     }
 })
 
 const study_model = mongoose.model('register', study_schema)
-const dataToInsert = [
-    {
-        name: "Gaurav patel",
-        email: "gauravgurjar8791@gmail.com",
-        password: "23222",
-        confirm_pass: "23222"
-    }
-];
-study_model.insertMany(dataToInsert)
-    .then(insertedData => {
-        console.log('Inserted data:', insertedData);
-    })
-    .catch(error => {
-        console.error('Error inserting data:', error);
-    });
+// study_model.insertMany(studyDB);
+
+
+const obj = {logo:"https://www.google.com/url?sa=i&url=https%3A%2F%2F99designs.com%2Finspiration%2Flogos%2Fcommunity&psig=AOvVaw33N5E_v970iBh8osVC89mx&ust=1692646025684000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCOCElvr764ADFQAAAAAdAAAAABAh",
+name:"HappyHours",
+description:"A community for of experienced devs",
+posts:["64e26580ea43b589e5f17276","64e26580ea43b589e5f17277","64e26580ea43b589e5f17278"]
+}
+// CommunityDB.insertMany(obj);
+
+
+
+
+
+
+
+
+
+
 
 const bcrypt=require("bcrypt");
 const { Int32 } = require('bson');
 
 
-app.post("/login", async (req, res) => {
-    console.log(req.body);
-    
+app.post("/login", async (req, res) => {    
     let { email, password } = req.body;
     
 
@@ -105,7 +115,6 @@ app.post("/login", async (req, res) => {
             return    res.status(500).send('email id not exist');
         }
         const check=await bcrypt.compare(req.body.password,existingUser.password)
-        console.log(req.body.password);
         if(!check){
             return res.status(200).send("password not match")
         }
@@ -113,14 +122,14 @@ app.post("/login", async (req, res) => {
         // User doesn't exist, proceed with registration
         
         console.log('User registered successfully');
-        return res.redirect("/");
+        return res.render("/",{existingUser});
     } catch (error) {
         console.error('Error registering user:', error);
         return res.status(500).send('Error registering user');
     }
 });
 app.post("/register",async (req,res)=>{
-    let { name, email,skill,contact,school,linkedin,leetcode, password} = req.body;
+    let { name, email,skill,contact,school,time,linkedin,leetcode, password} = req.body;
     const existingUser = await study_model.findOne({ email });
     if(existingUser){
        return  res.send("email id already exist");
@@ -134,10 +143,9 @@ app.post("/register",async (req,res)=>{
     // Insert data into the MongoDB database
     try {
         password= await bcrypt.hash(password,10);
-        console.log(password);
-        await study_model.create({ name, email,skill,contact,school, leetcode,linkedin,password });
+        await study_model.create({ name, email,skill,contact,school,time, leetcode,linkedin,password });
         console.log('Data inserted successfully');
-        res.redirect("/");
+        res.redirect("/login");
     } catch (error) {
         console.error('Error inserting data:', error);
         res.status(500).send('Error inserting data');
@@ -145,9 +153,10 @@ app.post("/register",async (req,res)=>{
 })
 
 
+
+
 app.get("/show",async (req,res)=>{
     let study = await study_model.find({});
-    //console.log(quotesprinted)
     res.render('show',{study});
 
 })
@@ -156,34 +165,68 @@ app.get("/show",async (req,res)=>{
 
 app.post("/show", async (req, res) => {
     const { search } = req.body;
-   
-  
-    
-    const study = await study_model.find({ skill: search });
-
-    
-  
+    const study = await study_model.find({ name: search });
       if (study.length > 0) {
         // If users are found, render the 'show' view with the users data
         res.render('show', { study });
       } else {
         // If users are not found, you can render an error view or send an error response
-        res.status(404).json({ message: 'Users not found' });
       }
    
   });
-  app.get('/show/:id',async (req,res)=>{
+app.get('/show/:id',async (req,res)=>{
     let {id}=req.params;
     let found = await study_model.findById(id)
     res.render("connect",{found})
-    console.log(found);
 })
 
+app.get("/",(req,res)=>{
+    res.render("home")
+})
 
-app.get('/home',(req,res)=>{
-    res.render('home');
+app.get("/home",(req,res)=>{
+    res.render("home")
+})
+app.get('/community', async (req, res) => {
+    try {
+        let comObj = await CommunityDB.find({});
+        let postObj = await PostDB.find({});
+        res.render('community', { comObj: comObj, postObj: postObj }); // Pass both arrays as an object
+    } catch (err) {
+        console.error('Error fetching data:', err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-app.get('/resource',(req,res)=>{
-    res.render('register');
+
+const mongoose2 = require('mongoose');
+
+const gigSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  description: String,
+  price: {
+    type: Number,
+    required: true,
+    min: 0
+  },
+  location: String,
+  datePosted: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const Gig = mongoose2.model('Gig', gigSchema);
+
+module.exports = Gig;
+// obj ={title:'internship', description:'remote internship in Mumbai',price:499,location:"Mumbai,india"}
+// Gig.create(obj)
+
+app.get("/jobs",async (req,res)=>{
+    let intern = await Gig.find({});
+    res.render('job',{intern});
+
 })

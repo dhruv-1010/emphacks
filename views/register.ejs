@@ -1,3 +1,4 @@
+<%- include('./navbar') %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
 <style>
     @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
     *:focus {
@@ -29,6 +33,7 @@
       background: #FFF;
       border-radius: 2px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      overflow: scroll;
     }
     
     .left {
@@ -171,6 +176,7 @@
   
 </style>
 <body>
+  
     <form action="/register" method="post">
     <div id="login-box">
         <div class="left">
@@ -178,14 +184,15 @@
           
           <input type="text" name="name" placeholder="Username" />
           <input type="text" name="email" placeholder="E-mail" />
-          <input type="text" name="skill" id="" placeholder="skill" />
+          <input type="text" name="skill" id="" placeholder="study buddy subject" />
          
           <input type="text" id="form3ExampleContactPhone" class="form-control form-control-lg"  name="contact" placeholder="contact"/>
           <input type="text" name="school" id="" placeholder="school/college">
+          <input type="text" name="time" id="" placeholder="preferred time">
 
 
-                <input type="text" name="linkedin" id="">
-                <input type="text" name="leetcode" id="">
+                <input type="text" name="linkedin" id="" placeholder="leetcode profile">
+                <input type="text" name="leetcode" id="" placeholder="linkedin profile">
 
           <input type="password" name="password" placeholder="Password" />
           <input type="password" name="confirm_pass" placeholder="Retype password" />
@@ -203,5 +210,11 @@
         </div>
         <div class="or">OR</div>
       </div>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"></script>
        
 </html>

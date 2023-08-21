@@ -1,0 +1,95 @@
+<%- include('./navbar') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <style>
+
+            .jobs{
+                overflow-y: scroll;
+            }
+            *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background: white;
+        }
+        .card{
+            width: 90vw;
+            border: 2px solid slateblue;
+            border-radius: 20px;
+            padding: 10px;
+            margin: 10px auto;
+        }
+        .card .head{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .low button{
+            padding: 7px;
+            background: rgb(5, 195, 242);
+            color: black;
+      }
+      .heading{
+        text-align: center;
+        
+        color: rgb(0, 3, 3);
+        text-shadow: 1px 1px 1px rgba(8, 8, 8, 0.5);
+      }
+ 
+      .mainheading{
+        margin-top: 20px;
+        color: rgb(27, 108, 121);
+        font-size: 5rem;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-weight: 900;
+        text-shadow: 4px 4px 4px rgba(8, 8, 8, 0.5);
+      }
+      .subheading{
+        margin-bottom: 40px;
+      }
+        </style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200&display=swap');
+
+  body {
+    font-family: 'Bricolage Grotesque', sans-serif;
+  }
+</style>
+</head>
+
+<body style="font-family: 'Bricolage Grotesque',monospace;">
+    <h1 class="heading mainheading ">Job's Corner</h1>
+    <h3 class="heading subheading">Get you Dream Job here</h3>
+    <div class="jobs">
+    <% for (let object of intern) { %>
+       
+        <div class="card">
+            <div class="head">
+                <h3><%= object.title.charAt(0).toUpperCase() + object.title.slice(1) %></h3>
+
+              <h3><%= object.price %></h3>
+              <h3><%=object.datePosted.toLocaleDateString() %></h3>
+            </div>
+            <div class="mid">
+              <p>
+                <%= object.description.charAt(0).toUpperCase() + object.description.slice(1) %>
+            </p>
+            </div>
+            <div class="low">
+              <button type="submit">Apply</button>
+            </div>
+      </div>
+   <% } %>
+</div>
+    
+</body>
+</html>
