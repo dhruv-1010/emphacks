@@ -180,10 +180,10 @@ app.get('/show/:id',async (req,res)=>{
     res.render("connect",{found})
 })
 
+
 app.get("/",(req,res)=>{
     res.render("home")
 })
-
 app.get("/home",(req,res)=>{
     res.render("home")
 })
