@@ -230,3 +230,8 @@ app.get("/jobs",async (req,res)=>{
     res.render('job',{intern});
 
 })
+app.get('/posts/:id',async (req,res)=>{
+    let {id} = req.params;
+    let post = await PostDB.findById(id);
+    res.render('blog',{post});
+})
